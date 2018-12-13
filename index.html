@@ -1,6 +1,26 @@
 <html>
 <head>
 <style>
+.button {
+  background-color: white; 
+  border: 2px solid #008CBA;
+  color: black; 
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #008CBA;
+  color: white;
+}
+	
 .hide{
 	display: none;
 }
@@ -17,19 +37,19 @@
 </head>
 <body onload="load(1)" onunload="save(1)">
 Eggs: <span id="eggs">0</span>
-<a id="getEggs" onclick="getEggs()">Get Eggs</a><br />
+<button id="getEggs" onclick="getEggs()" class="button">Get Eggs</button><br />
 <span id="silverEggContainer" class="hide silver">Silver Eggs: <span id="silverEggs">0</span><br /></span>
 <span id="goldenEggContainer" class="hide gold">Golden Eggs: <span id="goldenEggs">0</span><br /></span>
 <span id="diamondEggContainer" class="hide diamond">Diamond Eggs: <span id="diamondEggs">0</span><br /></span>
-<button id="sellEggs" onclick="sellEggs()">Sell Eggs ($<span id="eggPrice">0.50</span>)</button><br />
+<button id="sellEggs" onclick="sellEggs()" class="button">Sell Eggs ($<span id="eggPrice">0.50</span>)</button><br />
 Money: $<span id="money">0.00</span><br />
-<button id="buyChicken" onclick="buyChicken()">Buy Chicken ($<span id="chickenPrice">50.00</span>)</button><br />
-Chickens: <span id="chickens">0</span><br />
-<button id="buyStand" onclick="buyStand()">Buy Stand ($<span id="standPrice">50.00</span>)</button><br />
-Stands: <span id="stands">0</span><br /><br />
-<button id="save" onclick="save()">Save</button>
-<button id="load" onclick="load()">Load</button>
-<button id="clear" onclick="clearSave()">Clear Save</button>
+<button id="buyChicken" onclick="buyChicken()" class="button">Buy Chicken ($<span id="chickenPrice">50.00</span>)</button><br />
+Chickens: <span id="chickens" class="button">0</span><br />
+<button id="buyStand" onclick="buyStand()" class="button">Buy Stand ($<span id="standPrice">50.00</span>)</button><br />
+Stands: <span id="stands" class="button">0</span><br /><br />
+<button id="save" onclick="save()" class="button">Save</button>
+<button id="load" onclick="load()" class="button">Load</button>
+<button id="clear" onclick="clearSave()" class="button">Clear Save</button>
 <script type="text/javascript" src="eggs.js"></script>
 </body>
 </html>
