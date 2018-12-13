@@ -50,7 +50,8 @@ function sellEggs(market){
 
 var chickens = 0;
 var chickenPrice = 50;
-function buyChicken(){
+function buyChicken(count){
+	for (i = 0; i < count; i++){
 	if (money >= chickenPrice){
 		chickens = chickens + 1;
 		money = money - chickenPrice;
@@ -73,11 +74,13 @@ function buyChicken(){
 		document.getElementById("money").innerHTML = decimal(money);
 		document.getElementById("chickens").innerHTML = chickens;
 	}
+	}
 }
 
 var stands = 0;
 var standPrice = 50;
-function buyStand(){
+function buyStand(count){
+	for (i = 0; i < count; i++){
 	if (money >= standPrice){
 		stands = stands + 1;
 		money = money - standPrice;
@@ -101,6 +104,7 @@ function buyStand(){
 		document.getElementById("money").innerHTML = decimal(money);
 		document.getElementById("stands").innerHTML = stands;
 	}
+	}
 }
 
 function standEgg(standCount){
@@ -113,8 +117,8 @@ function increaseEgg(){
 	if (sellout === 0){
 		var jump = (getRandomInt(10))/10;
 		eggPrice = eggPrice + jump;
-		if (eggPrice >= 40){
-			eggPrice = 40;
+		if (eggPrice >= 30){
+			eggPrice = 30;
 		}
 		document.getElementById('eggPrice').innerHTML = decimal(eggPrice);
 	} else {
@@ -148,7 +152,25 @@ function chickenEgg(chknCount){
 			document.getElementById("diamondEggs").innerHTML = diamondEggs;
 		}
 		document.getElementById("eggs").innerHTML = eggs;
+		if (silverEggs >= 1){
+			document.getElementById("silverEggContainer").classList.remove("hide");
+		}
+		if (goldenEggs >= 1){
+			document.getElementById("goldenEggContainer").classList.remove("hide");
+		}
+		if (diamondEggs >= 1){
+			document.getElementById("diamondEggContainer").classList.remove("hide");
+		}
 	}
+}
+
+var sliderCount = document.getElementById("sliderCount");
+var countNumber = document.getElementById("countNumber");
+countNumber.innerHTML = sliderCount.value;
+var buyNumber = sliderCount.value;
+sliderCount.oninput = function() {
+	countNumber.innerHTML = this.value;
+	buyNumber = this.value;
 }
 
 window.setInterval(function(){
