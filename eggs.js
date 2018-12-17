@@ -56,6 +56,7 @@ function sellEggs(market){
 				sellout = 15;
 			}
 		}
+		document.getElementById('eggPrice').innerHTML = decimal((eggPrice * eggMultiplier));
 	}
 }
 
