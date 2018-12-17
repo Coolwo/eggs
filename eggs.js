@@ -30,14 +30,14 @@ function sellEggs(market){
 			if (eggPrice <= 0){
 				eggPrice = 0.10;
 			}
-			document.getElementById('eggPrice').innerHTML = decimal(eggPrice);
+			document.getElementById('eggPrice').innerHTML = decimal((eggPrice * eggMultiplier));
 		} else if (dropR === 19){
 			var jump = (getRandomInt(10))/10;
 			eggPrice = eggPrice + jump;
 			if (eggPrice >= 25){
 				eggPrice = 25;
 			}
-			document.getElementById('eggPrice').innerHTML = decimal(eggPrice);
+			document.getElementById('eggPrice').innerHTML = decimal((eggPrice * eggMultiplier));
 		}
 		if (market === 0){
 				sellout += 1;
