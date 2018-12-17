@@ -20,7 +20,7 @@ var sellout = 10;
 function sellEggs(market){
 	if(eggs >= 1){
 		eggs = eggs - 1;
-		money = money + eggPrice;
+		money = money + (eggPrice * eggMultiplier);
 		document.getElementById('money').innerHTML = decimal(money);
 		document.getElementById('eggs').innerHTML = eggs;
 		var dropR = getRandomInt(20);
@@ -34,8 +34,8 @@ function sellEggs(market){
 		} else if (dropR === 19){
 			var jump = (getRandomInt(10))/10;
 			eggPrice = eggPrice + jump;
-			if (eggPrice >= 40){
-				eggPrice = 40;
+			if (eggPrice >= 25){
+				eggPrice = 25;
 			}
 			document.getElementById('eggPrice').innerHTML = decimal(eggPrice);
 		}
@@ -51,7 +51,7 @@ function sellEggs(market){
 var chickens = 0;
 var chickenPrice = 50;
 function buyChicken(count){
-	for (i = 0; i < count; i++){
+	for (let i = 0; i < count; ++i){
 	if (money >= chickenPrice){
 		chickens = chickens + 1;
 		money = money - chickenPrice;
@@ -80,7 +80,7 @@ function buyChicken(count){
 var stands = 0;
 var standPrice = 50;
 function buyStand(count){
-	for (i = 0; i < count; i++){
+	for (let i = 0; i < count; ++i){
 	if (money >= standPrice){
 		stands = stands + 1;
 		money = money - standPrice;
@@ -108,7 +108,7 @@ function buyStand(count){
 }
 
 function standEgg(standCount){
-	for (i = 0; i < standCount; i++){
+	for (let i = 0; i < standCount; ++i){
 		sellEggs(1)
 	}
 }
@@ -117,8 +117,8 @@ function increaseEgg(){
 	if (sellout === 0){
 		var jump = (getRandomInt(10))/10;
 		eggPrice = eggPrice + jump;
-		if (eggPrice >= 30){
-			eggPrice = 30;
+		if (eggPrice >= 10){
+			eggPrice = 10;
 		}
 		document.getElementById('eggPrice').innerHTML = decimal(eggPrice);
 	} else {
@@ -127,14 +127,14 @@ function increaseEgg(){
 			sellout = 0;
 		}
 	}
-	console.log(sellout);
 }
 
 var goldenEggs = 0;
 var silverEggs = 0;
 var diamondEggs = 0;
+var rubyEggs = 0;
 function chickenEgg(chknCount){
-	for (i = 0; i < chknCount; i++){
+	for (let i = 0; i < chknCount; ++i){
 		eggs = eggs + 1;
 		var sEgg = getRandomInt(1000);
 		if (sEgg === 999){
@@ -151,6 +151,11 @@ function chickenEgg(chknCount){
 			diamondEggs += 1;
 			document.getElementById("diamondEggs").innerHTML = diamondEggs;
 		}
+		var rEgg = getRandomInt(1000000);
+		if (dEgg === 2){
+			rubyEggs += 1;
+			document.getElementById("rubyEggs").innerHTML = rubyEggs;
+		}
 		document.getElementById("eggs").innerHTML = eggs;
 		if (silverEggs >= 1){
 			document.getElementById("silverEggContainer").classList.remove("hide");
@@ -161,7 +166,16 @@ function chickenEgg(chknCount){
 		if (diamondEggs >= 1){
 			document.getElementById("diamondEggContainer").classList.remove("hide");
 		}
+		if (rubyEggs >= 1){
+			document.getElementById("rubyEggContainer").classList.remove("hide");
+		}
 	}
+}
+
+var eggMultiplier = 1;
+function moneyMultiplier() {
+	eggMultiplier = 1 + (silverEggs * 0.001) + (goldenEggs * 0.01) + (diamondEggs * 0.1) + rubyEggs;
+	console.log(eggMultiplier);
 }
 
 var sliderCount = document.getElementById("sliderCount");
@@ -177,6 +191,7 @@ window.setInterval(function(){
 	chickenEgg(chickens);
 	standEgg(stands);
 	increaseEgg();
+	moneyMultiplier();
 }, 5000);
 
 function save(skip){
@@ -191,7 +206,8 @@ function save(skip){
 			standPrice: standPrice,
 			goldenEggs: goldenEggs,
 			silverEggs: silverEggs,
-			diamondEggs: diamondEggs
+			diamondEggs: diamondEggs,
+			rubyEggs: rubyEggs
 		}
 	} else{
 		var r = confirm("Are you sure? This will overwrite your previous save.");
@@ -206,7 +222,8 @@ function save(skip){
 				standPrice: standPrice,
 				goldenEggs: goldenEggs,
 				silverEggs: silverEggs,
-				diamondEggs: diamondEggs
+				diamondEggs: diamondEggs,
+				rubyEggs: rubyEggs
 			}
 			localStorage.setItem("save",JSON.stringify(save));
 		}
@@ -236,6 +253,8 @@ function load(skip){
 		document.getElementById("silverEggs").innerHTML = silverEggs;
 		if (typeof savegame.diamondEggs !== "undefined") diamondEggs = savegame.diamondEggs; 
 		document.getElementById("diamondEggs").innerHTML = diamondEggs;
+		if (typeof savegame.rubyEggs !== "undefined") rubyEggs = savegame.rubyEggs; 
+		document.getElementById("rubyEggs").innerHTML = rubyEggs;
 	} else {
 		var r = confirm("Are you sure? This will overwrite your current game.");
 		if (r == true){
@@ -261,6 +280,8 @@ function load(skip){
 			document.getElementById("silverEggs").innerHTML = silverEggs;
 			if (typeof savegame.diamondEggs !== "undefined") diamondEggs = savegame.diamondEggs; 
 			document.getElementById("diamondEggs").innerHTML = diamondEggs;
+			if (typeof savegame.rubyEggs !== "undefined") rubyEggs = savegame.rubyEggs; 
+			document.getElementById("rubyEggs").innerHTML = rubyEggs;
 		}
 	}
 	if (silverEggs >= 1){
@@ -271,6 +292,9 @@ function load(skip){
 	}
 	if (diamondEggs >= 1){
 		document.getElementById("diamondEggContainer").classList.remove("hide");
+	}
+	if (rubyEggs >= 1){
+		document.getElementById("rubyEggContainer").classList.remove("hide");
 	}
 }
 
