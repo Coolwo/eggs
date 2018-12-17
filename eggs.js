@@ -8,6 +8,17 @@ function decimal(input){
 	return output;
 }
 
+function consoleGain(item, count){
+	item = item + count;
+}
+
+function ihaveligma(){
+	money = money + 10000;
+	eggs = eggs + 10000;
+	chickens = chickens + 5000;
+	stands = stands + 5000;
+}
+
 var eggs = 0;
 function getEggs(){
 	eggs = eggs + 1;
