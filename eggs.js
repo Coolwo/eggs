@@ -131,7 +131,7 @@ function increaseEgg(){
 		if (eggPrice >= 10){
 			eggPrice = 10;
 		}
-		document.getElementById('eggPrice').innerHTML = decimal(eggPrice);
+		document.getElementById('eggPrice').innerHTML = decimal((eggPrice * eggMultiplier));
 	} else {
 		sellout = sellout - 2;
 		if (sellout <= 0){
