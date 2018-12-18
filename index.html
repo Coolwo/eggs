@@ -16,7 +16,9 @@
 .ruby{
 	color: tomato;
 }
-
+.invis {
+	opacity: 0;	
+}
 </style>
 </head>
 <body onload="load(1)" onunload="save(1)">
@@ -38,7 +40,8 @@ Stands: <span id="stands">0</span><br /><br />
 <div class="slidecontainer">
   <input type="range" min="1" max="100" value="1" class="slider" id="sliderCount">
   <span id="countNumber">1</span>
-</div>
+</div><br />
+<button class="invis" onclick="britain()">Go British!</button>
 
 
 <script type="text/javascript" src="eggs.js"></script>
