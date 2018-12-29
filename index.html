@@ -1,6 +1,44 @@
+<!DOCTYPE html>
+<meta charset="UTF-8"> 
 <html>
 <head>
 <style>
+.tab {
+  overflow: hidden;
+}
+
+button {
+	border-left: 2x solid darkgrey;
+	border-top: 2x solid darkgrey;
+	border-right: 2px solid grey;
+	border-bottom: 2px solid grey;
+	background-color: eee;
+	padding: 1px 2px;
+	margin: 1px 2px;
+}
+
+button:active {
+	border-right: 2px solid darkgrey;
+	border-bottom: 2px solid darkgrey;
+	border-top: 2px solid grey;
+	border-left: 2px solid grey;
+}
+
+.tab button {
+	float: left;
+	border: none !important;
+	background-color: eee !important;
+	cursor: pointer;
+	padding: 7px 8px;
+}
+.tab button.active {}
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
+}
+
 .hide{
 	display: none;
 }
@@ -16,32 +54,149 @@
 .ruby{
 	color: tomato;
 }
-.invis {
-	opacity: 0;	
+
+.tip{
+	display: none;
+	opacity: 0;
+	left: 40px;
+	position: absolute;
+	 animation: prestigeTransition 1s linear 0s 1 alternate;
+}
+div:hover > span{
+	display: inline-block;
+	opacity: 1;
+}
+
+.rotate{
+	left: 30px;
+	display: inline-block;	
+	position: absolute;
+	transition: 1s;
+}
+
+@keyframes prestigeTransition {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.rotateSelection:hover .rotate{
+	transform:rotate(90deg);
+}
+
+.tipClear{
+	color: #f7f7f7;
+}
+
+.hackerText{
+	font-size: 96x;
 }
 </style>
 </head>
-<body onload="load(1)" onunload="save(1)">
+<body onload="load(1)">
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'game')" id="defaultOpen">Game</button>
+  <button class="tablinks" onclick="openCity(event, 'prestigeTree')">Prestige Tree</button>
+  <button class="tablinks" onclick="openCity(event, 'settings')">Settings</button>
+</div>
+<div id="game" class="tabcontent">
+<div id="hackerText" class="hide hackerText">oh wow ruining games sure is fun</div>
 Eggs: <span id="eggs">0</span>
 <button id="getEggs" onclick="getEggs()">Get Eggs</button><br />
-<span id="silverEggContainer" class="hide silver">Silver Eggs: <span id="silverEggs">0</span><br /></span>
-<span id="goldenEggContainer" class="hide gold">Golden Eggs: <span id="goldenEggs">0</span><br /></span>
-<span id="diamondEggContainer" class="hide diamond">Diamond Eggs: <span id="diamondEggs">0</span><br /></span>
-<span id="rubyEggContainer" class="hide ruby">Ruby Eggs: <span id="rubyEggs">0</span><br /></span>
-<button id="sellEggs" onclick="sellEggs()">Sell Eggs ($<span id="eggPrice">0.50 per</span>)</button><br />
+<div id="silverEggContainer" class="hide silver">Silver Eggs: <span id="silverEggs">0</span><br /></div>
+<div id="goldenEggContainer" class="hide gold">Golden Eggs: <span id="goldenEggs">0</span><br /></div>
+<div id="diamondEggContainer" class="hide diamond">Diamond Eggs: <span id="diamondEggs">0</span><br /></div>
+<div id="rubyEggContainer" class="hide ruby">Ruby Eggs: <span id="rubyEggs">0</span><br /></div>
+<button id="sellEggs" onclick="sellEggs()">Sell Eggs ($<span id="eggPrice">0.50</span> per)</button><br />
 Money: $<span id="money">0.00</span><br />
-<button id="buyChicken" onclick="buyChicken(buyNumber)">Buy Chicken ($<span id="chickenPrice">50.00 per</span>)</button><br />
+<button id="buyChicken" onclick="buyChicken(buyNumber)">Buy Chicken ($<span id="chickenPrice">50.00</span> per)</button><br />
 Chickens: <span id="chickens">0</span><br />
-<button id="buyStand" onclick="buyStand(buyNumber)">Buy Stand ($<span id="standPrice">50.00 per</span>)</button><br />
-Stands: <span id="stands">0</span><br /><br />
-<button id="save" onclick="save()">Save</button>
-<button id="load" onclick="load()">Load</button>
-<button id="clear" onclick="clearSave()">Clear Save</button>
-<div class="slidecontainer">
-  <input type="range" min="1" max="100" value="1" class="slider" id="sliderCount">
-  <span id="countNumber">1</span>
-</div><br />
-<button class="invis" onclick="britain()">Go British!</button>
+<button id="buyStand" onclick="buyStand(buyNumber)">Buy Stand ($<span id="standPrice">50.00</span> per)</button><br />
+Stands: <span id="stands">0</span><br />
+<button onclick="prestigeGame()">Prestige ($1000000)</button><br />
+Prestige: <span id="prestige">0</span><br />
+</div>
+
+<div id="prestigeTree" class="tabcontent">
+	+<span id="prestigeBonusAmount">0</span> Prestige<br />
+	+<span id="chickenBonusAmount">0</span> Chickens<br />
+	+<span id="eggBonusAmount">0</span> Eggs<br /><br />
+	<div id="chickenPrestige">
+		<div class="tool" id="chickenBonus">
+			<div class="rotateSelection">
+				Chicken Bonus<br />
+				<span class="rotate">></span><span class="tip">+1 Chicken on start</span><br />
+				<button onclick="buyChickenBonus()">Buy (1 PP)</button>
+			</div>
+		<br /></div>
+		<div class="hide tool" id="moreChickens">
+			<div class="rotateSelection">
+				More Chickens<br />
+				<span class="rotate">></span><span class="tip">+2 Chickens on start</span><br />
+				<button onclick="buyMoreChickens()">Buy (2 PP)</button>
+			</div>
+		<br /></div>
+		<div id="chickenComplete" class="hide">Chicken Prestige Tree Complete!</div>
+		</div>
+		
+		<br /><br />
+		
+		<div id="eggPrestige">
+		<div class="tool" id="eggBonus">
+			<div class="rotateSelection">
+				Egg Bonus<br />
+				<span class="rotate">></span><span class="tip">+2 eggs when gathering. Chance to get silver eggs when gathering.</span><br />
+				<button onclick="buyEggBonus()">Buy (1 PP)</button>
+			</div>
+		<br /></div>
+		<div class="tool hide" id="moreEggs">
+			<div class="rotateSelection">
+				More Eggs<br />
+				<span class="rotate">></span><span class="tip">+7 eggs when gathering. Chance to get gold eggs when gathering.</span><br />
+				<button onclick="buyMoreEggs()">Buy (2 PP)</button>
+			</div>
+		<br /></div>
+		<div class="tool hide" id="eggComplete">
+			<div class="rotateSelection">
+				<div>Egg Prestige Tree Complete</div>
+				<span class="rotate">?</span><span class="tip tipClear">Try completing the rest of the trees (v1.2)</span>
+			</div>
+		<br /></div>
+		</div>
+		
+		<br /><br />
+		
+		<div class="tool" id="prestigeBonus">
+			<div class="rotateSelection">
+				Prestige Bonus<br />
+				<span class="rotate">></span><span class="tip">+1 PP on prestige</span><br />
+				<button onclick="buyPrestigeBonus()">Buy (2 PP)</button>
+			</div>
+		<br /></div>
+		<div class="tool hide" id="morePrestige">
+			<div class="rotateSelection">
+				More Prestige<br />
+				<span class="rotate">></span><span class="tip">+2 PP on prestige</span><br />
+				<button onclick="buyMorePrestige()">Buy (3 PP)</button>
+			</div>
+		<br /></div>
+		<div id="prestigeComplete" class="hide">Prestige Prestige Tree Complete!</div>
+		
+		<br /><br />		
+		
+	</div>
+</div>
+
+<div id="settings" class="tabcontent">
+	Eggs v1.2<br /><br />
+	<button id="save" onclick="saveGame(0)">Save</button>
+	<button id="load" onclick="load()">Load</button>
+	<button id="clear" onclick="clearSave()">Clear Save</button><br /><br />
+	Buy Count:<br />
+	<div class="slidecontainer">
+		<input type="range" min="1" max="100" value="1" class="slider" id="sliderCount">
+		<span id="countNumber">1</span>
+	</div>
+</div>
 
 
 <script type="text/javascript" src="eggs.js"></script>
