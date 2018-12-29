@@ -1,3 +1,9 @@
+console.log("Started selling eggs.");
+
+//Used to remember to finish features
+//console.log("Check the getEggs\(\) function you walnut");
+
+//Functions called later in JS
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -8,21 +14,42 @@ function decimal(input){
 	return output;
 }
 
-function consoleGain(item, count){
-	item = item + count;
-}
+//Sets HTML DOM
+var eggDOM = document.getElementById("eggs");
+var silverEggsDOM = document.getElementById("silverEggs");
+var goldenEggsDOM = document.getElementById("goldenEggs");
 
-function ihaveligma(){
-	money = money + 10000;
-	eggs = eggs + 10000;
-	chickens = chickens + 5000;
-	stands = stands + 5000;
-}
+var GSegg = getRandomInt(700)
+var GGegg = getRandomInt(7000)
 
+//Opens the game tab
+document.getElementById("defaultOpen").click();
+
+//basic functions
 var eggs = 0;
 function getEggs(){
-	eggs = eggs + 1;
-	document.getElementById('eggs').innerHTML = eggs;
+	for (let i = 0; i < 1 + eggBonus; ++i){
+		eggs = eggs + 1;
+		eggDOM.innerHTML = eggs;
+		if (eggPrestigeLevel >= 1){
+			if (GSegg === -1){
+				silverEggs += 1;
+				silverEggsDOM.innerHTML = silverEggs;
+				GSegg = getRandomInt(700);
+			} else { 
+				GSegg -= 1;
+			}
+		}
+		if (eggPrestigeLevel >= 2){
+			if (GGegg === -1){
+				goldenEggs += 1;
+				goldenEggsDOM.innerHTML = goldenEggs;
+				GGegg = getRandomInt(7000);
+			} else { 
+				GGegg -= 1;
+			}
+		}
+	}
 }
 
 var eggPrice = 0.50;
@@ -41,14 +68,14 @@ function sellEggs(market){
 			if (eggPrice <= 0){
 				eggPrice = 0.10;
 			}
-			document.getElementById('eggPrice').innerHTML = decimal((eggPrice * eggMultiplier));
+			document.getElementById('eggPrice').innerHTML = decimal(eggPrice * eggMultiplier);
 		} else if (dropR === 19){
 			var jump = (getRandomInt(10))/10;
 			eggPrice = eggPrice + jump;
 			if (eggPrice >= 25){
 				eggPrice = 25;
 			}
-			document.getElementById('eggPrice').innerHTML = decimal((eggPrice * eggMultiplier));
+			document.getElementById('eggPrice').innerHTML = decimal(eggPrice * eggMultiplier);
 		}
 		if (market === 0){
 				sellout += 1;
@@ -56,10 +83,11 @@ function sellEggs(market){
 				sellout = 15;
 			}
 		}
-		document.getElementById('eggPrice').innerHTML = decimal((eggPrice * eggMultiplier));
 	}
 }
+//
 
+//Buying chickens & stands
 var chickens = 0;
 var chickenPrice = 50;
 function buyChicken(count){
@@ -97,7 +125,6 @@ function buyStand(count){
 		stands = stands + 1;
 		money = money - standPrice;
 		var dropS = getRandomInt(20);
-		console.log(dropS);
 		if (dropS === 0){
 			var drop = getRandomInt(10);
 			standPrice = standPrice - drop;
@@ -118,7 +145,9 @@ function buyStand(count){
 	}
 	}
 }
+//
 
+//setInterval functions
 function standEgg(standCount){
 	for (let i = 0; i < standCount; ++i){
 		sellEggs(1)
@@ -132,7 +161,7 @@ function increaseEgg(){
 		if (eggPrice >= 10){
 			eggPrice = 10;
 		}
-		document.getElementById('eggPrice').innerHTML = decimal((eggPrice * eggMultiplier));
+		document.getElementById('eggPrice').innerHTML = decimal(eggPrice * eggMultiplier);
 	} else {
 		sellout = sellout - 2;
 		if (sellout <= 0){
@@ -140,6 +169,128 @@ function increaseEgg(){
 		}
 	}
 }
+//
+
+//Prestiging
+var prestige = 0;
+function prestigeGame(){
+	if (money >= 1000000){
+		var r = confirm("Are you sure? This will reset everything!");
+		if (r === true){
+			eggs = 0;
+			money = 0;
+			chickens = 0;
+			stands = 0;
+			goldenEggs = 0;
+			silverEggs = 0;
+			diamondEggs = 0;
+			rubyEggs = 0;
+			prestige = prestige + 1 + prestigeBonus;
+			chickens += chickenBonus;
+			document.getElementById("prestige").innerHTML = prestige;
+			document.getElementById("eggs").innerHTML = eggs;
+			document.getElementById("money").innerHTML = money;
+			document.getElementById("chickens").innerHTML = chickens;
+			document.getElementById("stands").innerHTML = stands;
+			document.getElementById("goldenEggs").innerHTML = goldenEggs;
+			document.getElementById("silverEggs").innerHTML = silverEggs;
+			document.getElementById("diamondEggs").innerHTML = diamondEggs;
+			document.getElementById("rubyEggs").innerHTML = rubyEggs;
+		}
+	}
+}
+
+//Prestige Items
+
+//Chicken Prestiges
+var chickenPrestigeLevel = 0;
+var chickenBonus = 0;
+function buyChickenBonus(){
+	if(prestige >= 1){
+		prestige -= 1;
+		chickenBonus += 1;
+		chickens += 1;
+		chickenPrestigeLevel += 1;
+		document.getElementById("chickens").innerHTML = chickens;
+		document.getElementById("prestige").innerHTML = prestige;
+		document.getElementById("chickenBonusAmount").innerHTML = chickenBonus;
+		document.getElementById("moreChickens").classList.remove("hide");
+		document.getElementById("chickenBonus").classList.add("hide");
+	}
+}
+
+function buyMoreChickens(){
+	if(prestige >= 2){
+		prestige -= 2;
+		chickenBonus += 2;
+		chickens += 2;
+		chickenPrestigeLevel += 1;
+		document.getElementById("chickens").innerHTML = chickens;
+		document.getElementById("prestige").innerHTML = prestige;
+		document.getElementById("chickenBonusAmount").innerHTML = chickenBonus;
+		document.getElementById("moreChickens").classList.add("hide");
+		document.getElementById("chickenComplete").classList.remove("hide");
+	}
+}
+//
+
+//Prestige Prestiges
+var prestigePrestigeLevel
+var prestigeBonus = 0;
+function buyPrestigeBonus(){
+	if(prestige >= 2){
+		prestige -= 2;
+		prestigeBonus += 1;
+		document.getElementById("prestige").innerHTML = prestige;
+		document.getElementById("prestigeBonusAmount").innerHTML = prestigeBonus;
+		document.getElementById("prestigeBonus").classList.add("hide");
+		document.getElementById("morePrestige").classList.remove("hide");
+	}
+}
+
+function buyMorePrestige(){
+	if(prestige >= 3){
+		prestige -= 3;
+		prestigeBonus += 2;
+		prestigePrestigeLevel += 1;
+		document.getElementById("prestige").innerHTML = prestige;
+		document.getElementById("prestigeBonusAmount").innerHTML = prestigeBonus;
+		document.getElementById("morePrestige").classList.add("hide");
+		document.getElementById("prestigeComplete").classList.remove("hide");
+	}
+}
+//
+
+//Egg Prestiges
+var eggPrestigeLevel = 0;
+var eggBonus = 0;
+function buyEggBonus(){
+	if (prestige >= 1){
+		prestige -= 1;
+		eggBonus += 2;
+		eggPrestigeLevel += 1;
+		document.getElementById("prestige").innerHTML = prestige;
+		document.getElementById("eggBonusAmount").innerHTML = eggBonus;
+		document.getElementById("moreEggs").classList.remove("hide");
+		document.getElementById("eggBonus").classList.add("hide");
+	}
+}
+function buyMoreEggs(){
+	if(prestige >= 2){
+		prestige -= 2;
+		eggBonus += 7;
+		eggPrestigeLevel += 1;
+		document.getElementById("prestige").innerHTML = prestige;
+		document.getElementById("eggBonusAmount").innerHTML = eggBonus;
+		document.getElementById("moreEggs").classList.add("hide");
+		document.getElementById("eggComplete").classList.remove("hide");
+	}
+}
+
+//
+
+//Multiplier Prestiges
+var multiplierBonus = 0;
 
 var goldenEggs = 0;
 var silverEggs = 0;
@@ -169,25 +320,27 @@ function chickenEgg(chknCount){
 			document.getElementById("rubyEggs").innerHTML = rubyEggs;
 		}
 		document.getElementById("eggs").innerHTML = eggs;
-		if (silverEggs >= 1){
-			document.getElementById("silverEggContainer").classList.remove("hide");
-		}
-		if (goldenEggs >= 1){
-			document.getElementById("goldenEggContainer").classList.remove("hide");
-		}
-		if (diamondEggs >= 1){
-			document.getElementById("diamondEggContainer").classList.remove("hide");
-		}
-		if (rubyEggs >= 1){
-			document.getElementById("rubyEggContainer").classList.remove("hide");
-		}
+	}
+	if (silverEggs >= 1){
+		document.getElementById("silverEggContainer").classList.remove("hide");
+	}
+	if (goldenEggs >= 1){
+		document.getElementById("goldenEggContainer").classList.remove("hide");
+	}
+	if (diamondEggs >= 1){
+		document.getElementById("diamondEggContainer").classList.remove("hide");
+	}
+	if (rubyEggs >= 1){
+		document.getElementById("rubyEggContainer").classList.remove("hide");
 	}
 }
 
+
+
 var eggMultiplier = 1;
 function moneyMultiplier() {
-	eggMultiplier = 1 + (silverEggs * 0.001) + (goldenEggs * 0.01) + (diamondEggs * 0.1) + rubyEggs;
-	console.log(eggMultiplier);
+	eggMultiplier = 1 + (silverEggs * 0.001) + (goldenEggs * 0.01) + (diamondEggs * 0.1) + rubyEggs + multiplierBonus;
+	console.log(eggMultiplier + " times Multiplier" + "   $" + eggPrice + " per egg, $" + decimal(eggPrice * eggMultiplier) + " Total");
 }
 
 var sliderCount = document.getElementById("sliderCount");
@@ -199,16 +352,34 @@ sliderCount.oninput = function() {
 	buyNumber = this.value;
 }
 
+var saveEggs = 0;
+function autoSaveEggs(){
+	if(saveEggs === 2){
+		saveGame(1);
+		console.log("Autosaved");
+		saveEggs = 0;
+	} else {
+		saveEggs += 1;
+	}
+}
+
 window.setInterval(function(){
 	chickenEgg(chickens);
 	standEgg(stands);
 	increaseEgg();
 	moneyMultiplier();
+	autoSaveEggs();
 }, 5000);
 
-function save(skip){
-	if (skip === 1){
-		var save = {
+
+function saveGame(skip){
+	if(skip === 0){
+		var r = confirm("Are you sure? This will overwrite your previous save.");
+	} else {
+		r = true
+	}
+	if (r == true){
+		save = {
 			eggs: eggs,
 			eggPrice: eggPrice,
 			money: money,
@@ -219,26 +390,12 @@ function save(skip){
 			goldenEggs: goldenEggs,
 			silverEggs: silverEggs,
 			diamondEggs: diamondEggs,
-			rubyEggs: rubyEggs
+			rubyEggs: rubyEggs,
+			prestige: prestige,
+			chickenPrestigeLevel: chickenPrestigeLevel,
+			eggPrestigeLevel: eggPrestigeLevel
 		}
-	} else{
-		var r = confirm("Are you sure? This will overwrite your previous save.");
-		if (r == true){
-			var save = {
-				eggs: eggs,
-				eggPrice: eggPrice,
-				money: money,
-				chickenPrice: chickenPrice,
-				chickens: chickens,
-				stands: stands,
-				standPrice: standPrice,
-				goldenEggs: goldenEggs,
-				silverEggs: silverEggs,
-				diamondEggs: diamondEggs,
-				rubyEggs: rubyEggs
-			}
-			localStorage.setItem("save",JSON.stringify(save));
-		}
+		localStorage.setItem("save",JSON.stringify(save));
 	}
 }
 
@@ -267,6 +424,10 @@ function load(skip){
 		document.getElementById("diamondEggs").innerHTML = diamondEggs;
 		if (typeof savegame.rubyEggs !== "undefined") rubyEggs = savegame.rubyEggs; 
 		document.getElementById("rubyEggs").innerHTML = rubyEggs;
+		if (typeof savegame.prestige !== "undefined") prestige = savegame.prestige; 
+		document.getElementById("prestige").innerHTML = prestige;
+		if (typeof savegame.chickenPrestigeLevel !== "undefined") chickenPrestigeLevel = savegame.chickenPrestigeLevel; 
+		if (typeof savegame.eggPrestigeLevel !== "undefined") eggPrestigeLevel = savegame.eggPrestigeLevel; 
 	} else {
 		var r = confirm("Are you sure? This will overwrite your current game.");
 		if (r == true){
@@ -294,6 +455,11 @@ function load(skip){
 			document.getElementById("diamondEggs").innerHTML = diamondEggs;
 			if (typeof savegame.rubyEggs !== "undefined") rubyEggs = savegame.rubyEggs; 
 			document.getElementById("rubyEggs").innerHTML = rubyEggs;
+			if (typeof savegame.prestige !== "undefined") prestige = savegame.prestige; 
+			document.getElementById("prestige").innerHTML = prestige;
+			if (typeof savegame.chickenPrestigeLevel !== "undefined") chickenPrestigeLevel = savegame.chickenPrestigeLevel; 
+			if (typeof savegame.eggPrestigeLevel !== "undefined") eggPrestigeLevel = savegame.eggPrestigeLevel; 
+			
 		}
 	}
 	if (silverEggs >= 1){
@@ -308,6 +474,60 @@ function load(skip){
 	if (rubyEggs >= 1){
 		document.getElementById("rubyEggContainer").classList.remove("hide");
 	}
+	var cpSuccess = false;
+	//IMPORTANT, don't forget to update
+	var maxCP = 2;
+	if (chickenPrestigeLevel >= 1){
+		if (chickenPrestigeLevel >= 1, chickenPrestigeLevel <= maxCP){
+			document.getElementById("chickenBonus").classList.add("hide");
+			document.getElementById("moreChickens").classList.remove("hide");
+			chickenBonus += 1;
+			console.log("CP Level 1 loaded");
+			cpSuccess = true;
+		}
+		if (chickenPrestigeLevel >= 2, chickenPrestigeLevel <= maxCP){
+			document.getElementById("moreChickens").classList.add("hide");
+			chickenBonus += 2;
+			console.log("CP level 2 loaded");
+			cpSuccess = true;
+		}
+		if (chickenPrestigeLevel === maxCP){
+			document.getElementById("chickenComplete").classList.remove("hide");
+		}
+		if (cpSuccess === false){
+			console.log("Error in loading Chicken Prestige");
+		}
+		document.getElementById("chickenBonusAmount").innerHTML = chickenBonus;
+	} else {
+		console.log('No chicken prestige found.');
+	}
+	var epSuccess = false;
+	//IMPORTANT, don't forget to update
+	var maxEP = 2;
+	if (eggPrestigeLevel >= 1){
+		if (eggPrestigeLevel >= 1, eggPrestigeLevel <= maxEP){
+			document.getElementById("eggBonus").classList.add("hide");
+			document.getElementById("moreEggs").classList.remove("hide");
+			eggBonus += 2;
+			console.log("EP Level 1 loaded");
+			epSuccess = true;
+		}
+		if (eggPrestigeLevel >= 2, eggPrestigeLevel <= maxEP){
+			document.getElementById("moreEggs").classList.add("hide");
+			eggBonus += 7;
+			console.log("EP level 2 loaded");
+			epSuccess = true;
+		}
+		if (eggPrestigeLevel === maxEP){
+			document.getElementById("eggComplete").classList.remove("hide");
+		}
+		if (epSuccess === false){
+			console.log("Error in loading Egg Prestige");
+		}
+		document.getElementById("eggBonusAmount").innerHTML = eggBonus;
+	} else {
+		console.log('No egg prestige found.');
+	}
 }
 
 function clearSave(){
@@ -315,4 +535,25 @@ function clearSave(){
 	if (r == true){
 		this.localStorage.removeItem('save');
 	}
+}
+
+//Opens tabs (w3schools)
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+//Hacking the bloody game?
+function pmoney(){
+	money = money + 1000000;
+	document.getElementById("hackerText").classList.remove("hide");
 }
