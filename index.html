@@ -8,20 +8,37 @@
 }
 
 button {
-	border-left: 2x solid darkgrey;
-	border-top: 2x solid darkgrey;
-	border-right: 2px solid grey;
-	border-bottom: 2px solid grey;
+	border-left: 2px solid darkgray;
+	border-top: 2px solid darkgray;
+	border-right: 2px solid gray;
+	border-bottom: 2px solid gray;
 	background-color: eee;
 	padding: 1px 2px;
 	margin: 1px 2px;
 }
 
 button:active {
-	border-right: 2px solid darkgrey;
-	border-bottom: 2px solid darkgrey;
-	border-top: 2px solid grey;
-	border-left: 2px solid grey;
+	border-right: 2px solid darkgray;
+	border-bottom: 2px solid darkgray;
+	border-top: 2px solid gray;
+	border-left: 2px solid gray;
+}
+
+.buttonReady {
+	border-left: 2px solid #aca;
+	border-top: 2px solid #aca;
+	border-right: 2px solid #797;
+	border-bottom: 2px solid #797;
+	background-color: honeydew;
+	padding: 1px 2px;
+	margin: 1px 2px;
+}
+
+.buttonReady:active {
+	border-right: 2px solid #aca;
+	border-bottom: 2px solid #aca;
+	border-top: 2px solid #797;
+	border-left: 2px solid #797;
 }
 
 .tab button {
@@ -112,7 +129,7 @@ Money: $<span id="money">0.00</span><br />
 Chickens: <span id="chickens">0</span><br />
 <button id="buyStand" onclick="buyStand(buyNumber)">Buy Stand ($<span id="standPrice">50.00</span> per)</button><br />
 Stands: <span id="stands">0</span><br />
-<button onclick="prestigeGame()">Prestige ($1000000)</button><br />
+<button onclick="prestigeGame()" id="prestigeButton">Prestige ($1000000)</button><br />
 Prestige: <span id="prestige">0</span><br />
 </div>
 
@@ -158,7 +175,7 @@ Prestige: <span id="prestige">0</span><br />
 		<div class="tool hide" id="eggComplete">
 			<div class="rotateSelection">
 				<div>Egg Prestige Tree Complete</div>
-				<span class="rotate">?</span><span class="tip tipClear">Try completing the rest of the trees (v1.2)</span>
+				<!--<span class="rotate">?</span><span class="tip tipClear">Try completing the rest of the trees (v1.4)</span>-->
 			</div>
 		<br /></div>
 		</div>
