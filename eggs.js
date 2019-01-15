@@ -218,8 +218,8 @@ var chickenBonus = 0;
 function buyChickenBonus(){
 	if(prestige >= 1){
 		prestige -= 1;
-		chickenBonus += 1;
-		chickens += 1;
+		chickenBonus += 10;
+		chickens += 10;
 		chickenPrestigeLevel += 1;
 		document.getElementById("chickens").innerHTML = chickens;
 		document.getElementById("prestige").innerHTML = prestige;
@@ -232,8 +232,8 @@ function buyChickenBonus(){
 function buyMoreChickens(){
 	if(prestige >= 2){
 		prestige -= 2;
-		chickenBonus += 2;
-		chickens += 2;
+		chickenBonus += 20;
+		chickens += 20;
 		chickenPrestigeLevel += 1;
 		document.getElementById("chickens").innerHTML = chickens;
 		document.getElementById("prestige").innerHTML = prestige;
