@@ -500,13 +500,13 @@ function load(skip){
 		if (chickenPrestigeLevel >= 1, chickenPrestigeLevel <= maxCP){
 			document.getElementById("chickenBonus").classList.add("hide");
 			document.getElementById("moreChickens").classList.remove("hide");
-			chickenBonus += 1;
+			chickenBonus += 10;
 			console.log("CP Level 1 loaded");
 			cpSuccess = true;
 		}
 		if (chickenPrestigeLevel >= 2, chickenPrestigeLevel <= maxCP){
 			document.getElementById("moreChickens").classList.add("hide");
-			chickenBonus += 2;
+			chickenBonus += 20;
 			console.log("CP level 2 loaded");
 			cpSuccess = true;
 		}
