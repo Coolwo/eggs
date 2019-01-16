@@ -497,14 +497,14 @@ function load(skip){
 	var cpSuccess = false;
 	var maxCP = 2;
 	if (chickenPrestigeLevel >= 1){
-		if (chickenPrestigeLevel >= 1, chickenPrestigeLevel <= maxCP){
+		if (chickenPrestigeLevel >= 1){
 			document.getElementById("chickenBonus").classList.add("hide");
 			document.getElementById("moreChickens").classList.remove("hide");
 			chickenBonus += 10;
 			console.log("CP Level 1 loaded");
 			cpSuccess = true;
 		}
-		if (chickenPrestigeLevel >= 2, chickenPrestigeLevel <= maxCP){
+		if (chickenPrestigeLevel >= 2){
 			document.getElementById("moreChickens").classList.add("hide");
 			chickenBonus += 20;
 			console.log("CP level 2 loaded");
@@ -512,6 +512,9 @@ function load(skip){
 		}
 		if (chickenPrestigeLevel === maxCP){
 			document.getElementById("chickenComplete").classList.remove("hide");
+		}
+		if (chickenPrestigeLevel > maxCP){
+			cpSuccess = false;	
 		}
 		if (cpSuccess === false){
 			console.log("Error in loading Chicken Prestige");
@@ -523,14 +526,14 @@ function load(skip){
 	var epSuccess = false;
 	var maxEP = 2;
 	if (eggPrestigeLevel >= 1){
-		if (eggPrestigeLevel >= 1, eggPrestigeLevel <= maxEP){
+		if (eggPrestigeLevel >= 1){
 			document.getElementById("eggBonus").classList.add("hide");
 			document.getElementById("moreEggs").classList.remove("hide");
 			eggBonus += 2;
 			console.log("EP Level 1 loaded");
 			epSuccess = true;
 		}
-		if (eggPrestigeLevel >= 2, eggPrestigeLevel <= maxEP){
+		if (eggPrestigeLevel >= 2){
 			document.getElementById("moreEggs").classList.add("hide");
 			eggBonus += 7;
 			console.log("EP level 2 loaded");
@@ -538,6 +541,9 @@ function load(skip){
 		}
 		if (eggPrestigeLevel === maxEP){
 			document.getElementById("eggComplete").classList.remove("hide");
+		}
+		if (eggPrestigeLevel > maxEP){
+			epSuccess = false;	
 		}
 		if (epSuccess === false){
 			console.log("Error in loading Egg Prestige");
@@ -549,14 +555,14 @@ function load(skip){
 	var ppSuccess = false;
 	var maxPP = 2;
 	if (prestigePrestigeLevel >= 1){
-		if (prestigePrestigeLevel >= 1, prestigePrestigeLevel <= maxPP){
+		if (prestigePrestigeLevel >= 1){
 			document.getElementById("prestigeBonus").classList.add("hide");
 			document.getElementById("morePrestige").classList.remove("hide");
 			prestigeBonus += 1;
 			console.log("PP Level 1 loaded");
 			ppSuccess = true;
 		}
-		if (prestigePrestigeLevel >= 2, prestigePrestigeLevel <= maxPP){
+		if (prestigePrestigeLevel >= 2){
 			document.getElementById("morePrestige").classList.add("hide");
 			prestigeBonus += 2;
 			console.log("PP level 2 loaded");
@@ -564,6 +570,9 @@ function load(skip){
 		}
 		if (prestigePrestigeLevel === maxPP){
 			document.getElementById("prestigeComplete").classList.remove("hide");
+		}
+		if (prestigePrestigeLevel > maxPP){
+			ppSuccess = false;	
 		}
 		if (ppSuccess === false){
 			console.log("Error in loading Prestige Prestige");
