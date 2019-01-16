@@ -312,12 +312,10 @@ function chickenEgg(chknCount){
 		var sEgg = getRandomInt(1000);
 		if (sEgg === 999){
 			silverEggs += 1;
-			silverEggsDOM.innerHTML = silverEggs;
 		}
 		var gEgg = getRandomInt(10000);
 		if (gEgg === 999){
 			goldenEggs += 1;
-			goldenEggsDOM.innerHTML = goldenEggs;
 		}
 		var dEgg = getRandomInt(100000);
 		if (dEgg === 0){
@@ -327,10 +325,15 @@ function chickenEgg(chknCount){
 		var rEgg = getRandomInt(1000000);
 		if (dEgg === 2){
 			rubyEggs += 1;
-			document.getElementById("rubyEggs").innerHTML = rubyEggs;
+			
 		}
-		eggDOM.innerHTML = eggs;
+		
 	}
+	silverEggsDOM.innerHTML = silverEggs;
+	goldenEggsDOM.innerHTML = goldenEggs;
+	document.getElementById("diamondEggs").innerHTML = diamondEggs;
+	document.getElementById("rubyEggs").innerHTML = rubyEggs;
+	eggDOM.innerHTML = eggs;
 	if (silverEggs >= 1){
 		silverEggContainerDOM.classList.remove("hide");
 	}
@@ -348,7 +351,7 @@ function chickenEgg(chknCount){
 var eggMultiplier = 1;
 function moneyMultiplier() {
 	eggMultiplier = 1 + (silverEggs * 0.001) + (goldenEggs * 0.01) + (diamondEggs * 0.1) + rubyEggs + multiplierBonus;
-	console.log(eggMultiplier + " times Multiplier" + "   $" + eggPrice + " per egg, $" + decimal(eggPrice * eggMultiplier) + " Total");
+	console.log(eggMultiplier + " times Multiplier" + "   $" + decimal(eggPrice) + " per egg, $" + decimal(eggPrice * eggMultiplier) + " Total");
 }
 
 var sliderCount = document.getElementById("sliderCount");
