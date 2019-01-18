@@ -1,5 +1,12 @@
 console.log("Started selling eggs.");
 
+function displayhelp(){
+	document.getElementById("help_text").classList.toggle("hide");
+	document.getElementById("tab_buttons").classList.toggle("disabled");
+	document.getElementById("game").classList.toggle("disabled");
+	document.getElementById("about_text").classList.add("enabled");
+}
+
 //Used to remember to finish features
 //1.2 - Upgrades
 //1.3 - Chickens &Stands+
