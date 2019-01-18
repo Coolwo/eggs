@@ -7,7 +7,45 @@
 .tab {
   overflow: hidden;
 }
-
+#text_link{
+	color: #06f;
+	cursor: pointer;
+	font-size: 32px; 
+}
+#help_link{
+	color: #06f;
+	cursor: pointer;
+}
+#footer{
+	text-align: center;
+	bottom: 10px;
+	width: 40vw;
+	right: 0px;
+	left: 30vw;
+	display: block;
+	position: fixed;
+}
+#about_text{
+	position: fixed;
+	background-color: #fefefe;
+	border: 1px solid black;
+	left: 30vw;
+	padding: 4px 4px;
+	max-width: 40vw;
+	min-width: 40vw;
+	z-index: 10;	
+}
+#help_text{
+	position: fixed;
+	background-color: #fefefe;
+	border: 1px solid black;
+	left: 20vw;
+	bottom: 20vh;
+	padding: 4px 4px;
+	max-width: 60vw;
+	min-width: 60vw;
+	z-index: 10;	
+}
 button {
 	border-left: 2px solid darkgray;
 	border-top: 2px solid darkgray;
@@ -215,8 +253,16 @@ Prestige: <span id="prestige">0</span><br />
 		<span id="countNumber">1</span>
 	</div>
 </div>
-
-
+<div id="footer">
+- <a id="help_link" onclick="displayhelp()">Help</a> -
+</div>
+<div id="help_text" class="hide">
+	Questions?<br />
+	In the next update, a "FAQ" of sorts is being added to explain features.<br />
+	If you have any, they will be submitted <a href="https://goo.gl/forms/NegBQvbJmYhQ0sK82">here</a>.<br />
+	Thank you.<br /><br />
+	<a id="text_link" onclick="displayhelp()">Close</a>
+</div>
 <script type="text/javascript" src="eggs.js"></script>
 </body>
 </html>
