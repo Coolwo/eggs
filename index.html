@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<meta charset="UTF-8"> 
+<html>
+<head>
+<link rel="shortcut icon" href="egg.ico" />
+<title id="title">0 Eggs</title>
+<style>
+#inventory_counter{
+	/*margin-left: 200px;*/
+	display: block;
+	width: 175px;
+	top: 3px;
+	display: inline-block;
+}
+#game_controls{
+	display: block;
+	width: 225px;
+	top: 3px;
+	margin: 1px;
+	position: relative
+}
+#game{
+	column-count: 2;
+	column-width: 25px;
+	width: 50vw;
+	min-width: 500px;
+}
+#tab_buttons{
+	max-height: 75px;
+	margin-bottom: 8px;
+}
+#about_link{
+	color: #06f;
+	cursor: pointer;
+}
+#text_link{
+	color: #06f;
+	cursor: pointer;
+}
+#help_link{
+	color: #06f;
+	cursor: pointer;
+}
+#about_text{
+	position: fixed;
+	background-color: #fefefe;
+	border: 1px solid black;
+	left: 30vw;
+	padding: 4px 4px;
+	max-width: 40vw;
+	min-width: 40vw;
+	z-index: 10;	
+}
+.footer_text{
+	position: fixed;
+	background-color: #fefefe;
+	border: 1px solid black;
+	left: 20vw;
+	bottom: 20vh;
+	padding: 4px 4px;
+	max-width: 60vw;
+	min-width: 60vw;
+	z-index: 10;	
+	columns: 2;
+}
+#footer{
+	text-align: center;
+	bottom: 10px;
+	width: 40vw;
+	right: 0px;
+	left: 30vw;
+	display: block;
+	position: fixed;
+}
+
+
+.break {
+    border: solid #aaaaaa 0.5px;
+	margin-top: 4px;
+	margin-bottom: 8px;
+	margin-left: 10%;
+	width: 80%;
+}
+div.counter_text::before{
+	content: attr(display);
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	padding: 0px 0px;
+	display: inline-block;
+}
+
+.before{
+	border: solid black 1px;
+}
+
+.before {
+    display: block;
+    padding: 3px;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+div.before::before {
+    background: white;
+}
+div.before::before {
+    position: absolute;
+    content: attr(display);
+    left: 5px;
+    top: -13px;
+    padding: 0px 4px;
+	margin-bottom: 2px;
+}
+
+.tab {
+  overflow: hidden;
+}
+
+button {
+	border-left: 2px solid darkgray;
+	border-top: 2px solid darkgray;
+	border-right: 2px solid gray;
+	border-bottom: 2px solid gray;
+	background-color: #eee;
+	padding: 1px 2px;
+	margin: 1px 2px;
+	margin-top: 6px;
+	cursor: pointer;
+}
+
+button:active {
+	border-right: 2px solid darkgray;
+	border-bottom: 2px solid darkgray;
+	border-top: 2px solid gray;
+	border-left: 2px solid gray;
+}
+
+.buttonReady {
+	border-left: 2px solid #aca;
+	border-top: 2px solid #aca;
+	border-right: 2px solid #797;
+	border-bottom: 2px solid #797;
+	background-color: honeydew;
+	padding: 1px 2px;
+	margin: 1px 2px;
+	margin-top: 6px;
+}
+
+.buttonReady:active {
+	border-right: 2px solid #aca;
+	border-bottom: 2px solid #aca;
+	border-top: 2px solid #797;
+	border-left: 2px solid #797;
+}
+
+.square{
+	width: 75px;
+	height: 75px;
+}
+
+.tab button {
+	float: left;
+	border: none !important;
+	background-color: #eee !important;
+	cursor: pointer;
+	padding: 7px 8px;
+}
+
+.disabled{
+	pointer-events: none;
+	opacity: 0.6;
+}
+.enabled{
+	pointer-events: auto !important;
+	opacity: 1 !important;
+}
+
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border-top: none;
+	animation: fadeEffect 1s;
+}
+
+.hide{
+	display: none;
+	animation: fadeEffect 1s;
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+.diamond{
+	color: lightblue;
+}
+.gold{
+	color: goldenrod;
+}
+.silver{
+	color: silver;
+}
+.ruby{
+	color: tomato;
+}
+
+.tip{
+	display: none;
+	opacity: 0;
+	left: 40px;
+	position: absolute;
+	 animation: prestigeTransition 1s linear 0s 1 alternate;
+}
+div:hover > span{
+	display: inline-block;
+	opacity: 1;
+}
+
+.rotate{
+	left: 30px;
+	display: inline-block;	
+	position: absolute;
+	transition: 1s;
+}
+
+@keyframes prestigeTransition {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.rotateSelection:hover .rotate{
+	transform:rotate(90deg);
+}
+
+.tipClear{
+	color: #f7f7f7;
+}
+
+.hackerText{
+	font-size: 96x;
+}
+</style>
+</head>
+<body onload="initGame()" id="body">
+<div class="tab" id="tab_buttons">
+  <button class="tablinks" onclick="openCity(event, 'game')" id="defaultOpen">Game</button>
+  <button class="tablinks disabled" onclick="openCity(event, 'upgrades')" id="upgradesTab">Upgrades</button>
+  <button class="tablinks" onclick="openCity(event, 'prestigeTree')">Prestige Tree</button>
+  <button class="tablinks" onclick="openCity(event, 'settings')">Settings</button>
+</div>
+<div id="game" class="tabcontent">
+<div id="hackerText" class="hide hackerText">oh wow ruining games sure is fun</div>
+
+
+<div id="game_controls" display="Game" class="before counter">
+<button id="getEggs" onclick="getEggs()">Get Eggs</button><br />
+<button id="sellEggs" onclick="sellEggs(0)">Sell Eggs ($<span id="eggPrice">0.50</span> per)</button><br />
+<button id="buyChicken" onclick="buyChicken(buyNumber)">Buy Chicken ($<span id="chickenPrice">50.00</span> per)</button><br />
+<button id="buyStand" onclick="buyStand(buyNumber)">Buy Stand ($<span id="standPrice">50.00</span> per)</button><br />
+<button id="scientist1" onclick="buyScienceChicken(buyNumber)" class="hide">Buy Science Chicken ($500 per)<br /></button>
+<button onclick="prestigeGame()" id="prestigeButton">Prestige ($1000000)</button><br />
+
+</div>
+<div id="inventory_counter" display="Inventory" class="before counter">
+<div class="counter_text" display="Currency"></div><br />
+<div class="break"></div>
+Money: $<span id="money">0.00</span><br />
+<div class="counter_text" display="Eggs"></div><br />
+<div class="break"></div>
+Eggs: <span id="eggs">0</span>
+<div id="silverEggContainer" class="hide silver">Silver Eggs: <span id="silverEggs">0</span><br /></div>
+<div id="goldenEggContainer" class="hide gold">Golden Eggs: <span id="goldenEggs">0</span><br /></div>
+<div id="diamondEggContainer" class="hide diamond">Diamond Eggs: <span id="diamondEggs">0</span><br /></div>
+<div id="rubyEggContainer" class="hide ruby">Ruby Eggs: <span id="rubyEggs">0</span><br /></div>
+<div class="counter_text" display="Chickens"></div><br />
+<div class="break"></div>
+Chickens: <span id="chickens">0</span><br />
+<div id="scienceChickensContainer" class="hide">Science Chickens: <span id="scienceChickens">0</span><br /></div>
+<div class="counter_text" display="Stands"></div><br />
+<div class="break"></div>
+Stands: <span id="stands">0</span><br />
+<div class="counter_text" display="Special"></div><br />
+<div class="break"></div>
+Prestige: <span id="prestige">0</span><br />
+<div id="scienceContainer" class="hide">Science: <span id="science">0</span><br /></div>
+</div><br />
+</div>
+<div id="upgrades" class="tabcontent">
+	<!--Chicken Upgrades-->
+	<div class="tool" id="chickenUpgrade1">
+			<div class="rotateSelection">
+				Cheap Chickens<br />
+				<span class="rotate">></span><span class="tip">+5 Chickens for $20 each.</span><br />
+				<button onclick="buyCheapChickens()">Buy ($100)</button>
+			</div>
+	<br /></div>
+	<div class="tool hide" id="chickenUpgrade2">
+			<div class="rotateSelection">
+				Better Food for Chickens<br />
+				<span class="rotate">></span><span class="tip">+$2.5 to the Egg price minimum.</span><br />
+				<button onclick="buyBetterFood()">Buy ($2000)</button>
+			</div>
+	<br /></div>
+	<div class="tool hide" id="chickenUpgrade3">
+			<div class="rotateSelection">
+				Space for Chickens<br />
+				<span class="rotate">></span><span class="tip">+1 Egg laid/chicken.</span><br />
+				<button onclick="buySpaceChickens()">Buy ($10000)</button>
+			</div>
+	<br /></div>
+	<div class="tool hide disabled" id="chickenUpgrade4">
+			<div class="rotateSelection">
+				Chicken Chickens<br />
+				<span class="rotate">></span><span class="tip">1% Chance for a chicken to make another one.</span><br />
+				<button onclick="buyChickenChickens()">Buy ($1000000, 150 science)</button>
+			</div>
+	<br /></div>
+	<div class="tool hide" id="chickenUpgrade5">
+		<div class="rotateSelection">
+			Tough Eggshells<br />
+			<span class="rotate">></span><span class="tip">+25% multiplier bonus.</span><br />
+			<button onclick="buyToughEggshells()">Buy ($2500000, 250 science)</button>
+		</div>
+	<br /></div>
+	<div class="tool hide" id="chickenUpgrade6">
+		<div class="rotateSelection">
+			Grade B Eggs<br />
+			<span class="rotate">></span><span class="tip">+$7.5 to the egg price cap/maximum.</span><br />
+			<button onclick="buyGradeBEggs()">Buy ($5000000, 1000 science)</button>
+		</div>
+	<br /></div>
+	<div class="tool hide disabled" id="chickenUpgrade7">
+		<div class="rotateSelection">
+			<i>???</i> (v1.3)<br />
+			<span class="rotate">?</span><span class="tip">Please help I have no more ideas.</span><br />
+			<button onclick="buy_HELP_PLEASE()">Buy ($?, ? science)</button>
+		</div>
+	<br /></div>
+	
+	<!--Stand Upgrades-->
+	<div class="tool" id="standUpgrade1">
+			<div class="rotateSelection">
+				Cheap Stands<br />
+				<span class="rotate">></span><span class="tip">+5 Stands for $20 each.</span><br />
+				<button onclick="buyCheapStands()">Buy ($100)</button>
+			</div>
+	<br /></div>
+	<div class="tool hide" id="standUpgrade2">
+			<div class="rotateSelection">
+				Marketing<br />
+				<span class="rotate">></span><span class="tip">+$2.5 to the Egg price cap.</span><br />
+				<button onclick="buyMarketing()">Buy ($2000)</button>
+			</div>
+	<br /></div>
+	<div class="tool hide" id="standUpgrade3">
+			<div class="rotateSelection">
+				Bigger Stands<br />
+				<span class="rotate">></span><span class="tip">+1 Egg sold/stand.</span><br />
+				<button onclick="buyBiggerStands()">Buy ($10000)</button>
+			</div>
+	<br /></div>
+	<div class="tool hide disabled" id="standUpgrade4">
+			<div class="rotateSelection">
+				Grade C Eggs<br />
+				<span class="rotate">></span><span class="tip">Increased chance for a stand to increase the egg price.</span><br />
+				<button onclick="buyGradeCEggs()">Buy ($1000000, 120 science)</button>
+			</div>
+	<br /></div>
+	<div class="tool hide" id="standUpgrade5">
+		<div class="rotateSelection">
+			Advertising<br />
+			<span class="rotate">></span><span class="tip">Stands now sell 3 eggs each.</span><br />
+			<button onclick="buyAdvertising()">Buy ($2500000, 250 science)</button>
+		</div>
+<br /></div>
+	<div class="tool hide" id="standUpgrade6">
+		<div class="rotateSelection">
+			Social Media<br />
+			<span class="rotate">></span><span class="tip">Social media makes your stands sell 4 eggs each for an extra +$7.5 egg price minimum.</span><br />
+			<button onclick="buySocialMedia()">Buy ($5000000, 1000 science)</button>
+		</div>
+	<br /></div>
+	<div class="tool hide disabled" id="standUpgrade7">
+		<div class="rotateSelection">
+			<i>???</i> (v1.3)<br />
+			<span class="rotate">?</span><span class="tip">Please help I have no more ideas.</span><br />
+			<button onclick="buy_HELP_PLEASE()">Buy ($?, ? science)</button>
+		</div>
+	<br /></div>
+	
+	<!--Generic Upgrades-->
+	<div class="tool" id="scienceUpgrade1">
+			<div class="rotateSelection">
+				Unlock Science Chickens<br />
+				<span class="rotate">></span><span class="tip">Train some chickens in Science.<br />Science and upgrades that require science save over prestiges. Science Chickens do not.</span><br /><br />
+				<button onclick="buyScienceChickens()">Buy ($100000)</button>
+			</div>
+	<br /></div>
+
+	<!--Egg Upgrades-->
+	
+</div>
+
+<div id="prestigeTree" class="tabcontent">
+	<div id="game_controls" display="Bonuses" class="before counter">
+		+<span id="prestigeBonusAmount">0</span> Prestige<br />
+		+<span id="chickenBonusAmount">0</span> Chickens<br />
+		+<span id="eggBonusAmount">0</span> Eggs<br />
+		+<span id="multiplierBonusAmount">0</span>% Sell Bonus
+	</div><br /><br />
+	<div id="chickenPrestige">
+		<div class="tool" id="chickenBonus">
+			<div class="rotateSelection">
+				Chicken Bonus<br />
+				<span class="rotate">></span><span class="tip">+10 Chicken on start</span><br />
+				<button onclick="buyChickenBonus()">Buy (1 PP)</button>
+			</div>
+		<br /></div>
+		<div class="hide tool" id="moreChickens">
+			<div class="rotateSelection">
+				More Chickens<br />
+				<span class="rotate">></span><span class="tip">+20 Chickens on start</span><br />
+				<button onclick="buyMoreChickens()">Buy (2 PP)</button>
+			</div>
+		<br /></div>
+		<div id="chickenComplete" class="hide">Chicken Prestige Tree Complete!</div>
+		</div>
+		
+		<br />
+		
+		<div id="eggPrestige">
+		<div class="tool" id="eggBonus">
+			<div class="rotateSelection">
+				Egg Bonus<br />
+				<span class="rotate">></span><span class="tip">+2 eggs when gathering. Chance to get silver eggs when gathering.</span><br />
+				<button onclick="buyEggBonus()">Buy (1 PP)</button>
+			</div>
+		<br /></div>
+		<div class="tool hide" id="moreEggs">
+			<div class="rotateSelection">
+				More Eggs<br />
+				<span class="rotate">></span><span class="tip">+7 eggs when gathering. Chance to get gold eggs when gathering.</span><br />
+				<button onclick="buyMoreEggs()">Buy (2 PP)</button>
+			</div>
+		<br /></div>
+		<div class="tool hide" id="eggComplete">
+			<div class="rotateSelection">
+				<div>Egg Prestige Tree Complete</div>
+				<!--<span class="rotate">?</span><span class="tip tipClear">Try completing the rest of the trees (v1.4)</span>-->
+			</div>
+		<!--<br />--></div>
+		</div>
+		
+		<br />
+		
+		<div class="tool" id="prestigeBonus">
+			<div class="rotateSelection">
+				Prestige Bonus<br />
+				<span class="rotate">></span><span class="tip">+1 PP on prestige</span><br />
+				<button onclick="buyPrestigeBonus()">Buy (2 PP)</button>
+			</div>
+		<br /></div>
+		<div class="tool hide" id="morePrestige">
+			<div class="rotateSelection">
+				More Prestige<br />
+				<span class="rotate">></span><span class="tip">+2 PP on prestige</span><br />
+				<button onclick="buyMorePrestige()">Buy (3 PP)</button>
+			</div>
+		<br /></div>
+		<div id="prestigeComplete" class="hide">Prestige Prestige Tree Complete!</div>
+		
+		<br />
+		
+		<div class="tool" id="unlockUpgrades">
+			<div class="rotateSelection">
+				Unlock Upgrades<br />
+				<span class="rotate">></span><span class="tip">Opens Upgrades Tab</span><br />
+				<button onclick="buyUnlockUpgrades()">Buy (2 PP)</button>
+			</div>
+		<br /></div>
+		<div class="tool hide" id="moreUpgrades">
+			<div class="rotateSelection">
+				More Upgrades<br />
+				<span class="rotate">></span><span class="tip">A new set of upgrades are unlocked.</span><br />
+				<button onclick="buyMoreUpgrades()">Buy (2 PP)</button>
+			</div>
+		<br /></div>
+		<div id="upgradeComplete" class="hide">Upgrade Prestige Tree Complete!</div>
+		
+		<br />
+	</div>
+</div>
+
+<div id="settings" class="tabcontent">
+	<div id="disable_settings">
+	Eggs v<span id="version">Config Not Found</span><br /><br />
+	Lifetime Prestige: <span id="lifetimePrestige">0</span><br /><br />
+	<a id="about_link" onclick="about()">About</a><br />
+	</div>
+	<div id="about_text" class="hide">
+		This game was made in Notepad++ using HTML, CSS, and Javascript. Development was done by me, except for examples and styling noted in the following paragraph.<br /><br />
+		Inventory styling taken from <a href="https://mrsperry.github.io/fish/fish.html">fishing enterprises</a> by mrsperry.<br />
+		<a href="https://www.w3schools.com/">W3schools</a> examples and guidance used throughout this project.<br /><br />
+		Additionally, try <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=11&cad=rja&uact=8&ved=2ahUKEwiJwoTJ2vLfAhXFc98KHW9iDsUQFjAKegQIDhAB&url=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUC-lHJZR3Gqxm24_Vd_AJ5Yw&usg=AOvVaw1Rd0xq4FZ2utZmZYpjOCEU">subscribing to pewdiepie</a>.<br /><br />
+		<a id="text_link" onclick="about()">Close</a>
+	</div>
+	<div id="disable_settings1">
+	<br /><br />
+	<button id="save" onclick="saveGame(0)">Save</button>
+	<button id="load" onclick="load()">Load</button>
+	<button id="clear" onclick="clearSave()">Clear Save</button><br /><br />
+	Buy Count:<br />
+	<div class="slidecontainer">
+		<input type="range" min="1" max="100" value="1" class="slider" id="sliderCount">
+		<span id="countNumber">1</span>
+	</div>
+	</div>
+</div>
+<div id="footer">
+- <a id="help_link" onclick="displayFooter('help')">Help</a> | <a id="help_link" onclick="displayFooter('new')"><b>What's New?</b></a> -
+</div>
+<script type="text/javascript" src="config.js"></script>
+<script type="text/javascript" src="js/eggs.js"></script>
+<script type="text/javascript" src="js/save.js"></script>
+<script type="text/javascript" src="js/upgrades.js"></script>
+<script type="text/javascript" src="js/update.js"></script>
+<script type="text/javascript" src="js/loops.js"></script>
+</body>
+<div id="help_text" class="hide footer_text">
+		Q: What do chickens/stands do?<br />
+		A: Chickens produce eggs, stands sell them.<br /><br />
+		Q: What does prestige do?<br />
+		A: Clicking "Prestige Tree" at the top of the screen will direct you to use them.<br /><br />
+		Q: What is "lifetime prestige"?<br />
+		A: It is a counter of how many times you have prestiged for the dedicated grinders out there.<br /><br />
+		Q: What do Silver/Golden/Diamond/Ruby Eggs do?<br />
+		A: They each increase income by 0.001/0.01/0.1/1 times, Respectively.<br /><br />
+		Q: Why can't I click on upgrades?<br />
+		A: If you don't have the prestige for it, you need to get it first. If you have it, it's a bug<br /><br />
+		Q: How do you get "Sell bonuses"?<br />
+		A: Each unused Prestige Point will increase it by 10%.<br /><br />
+		Q: Will you change prestige to $10,000?<br />
+		A: <b>NO</b>.<br /><br />
+		Additional questions, bugs, or suggestions can be submitted <a href="https://goo.gl/forms/NegBQvbJmYhQ0sK82">here</a>.<br /><br />
+		<a id="text_link" onclick="displayFooter('help')">Close</a>
+</div>
+<div id="new_text" class="hide footer_text">
+	This update (v1.2) added a lot.<br />
+	The major ones including:
+	<ul>
+		<li>Upgrades</li>
+		<li>Prestige for said upgrades</li>
+		<li>Science & Science Chickens</li>
+	</ul>
+	And more minor ones like:
+	<ul>
+		<li>A Lifetime Prestige counter</li>
+		<li>A LOT of restyling</li>
+		<li>Sell bonuses for prestige</li>
+		<li>More optimization</li>
+		<li>A bunch of bug fixes</li>
+	</ul>
+	Upgrades provide a boost to your current run or to the whole game.<br />
+	If they require science, they will save over prestiges.<br /><br />
+	Science is a kind of currency produced by science chickens.<br />
+	Science and science chickens do not save over prestiges.<br /><br />
+	Any more questions and <i>especially</i> bug reports can be submitted <a href="https://goo.gl/forms/NegBQvbJmYhQ0sK82">here</a>.<br /><br />
+<a id="text_link" onclick="displayFooter('new')">Close</a><br /> 
+</div>
+</html>
