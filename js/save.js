@@ -29,7 +29,8 @@ function saveGame(skip){
 			scienceChickens: scienceChickens,
 			science: science,
 			chickenScienceLevel: chickenScienceLevel,
-			standScienceLevel: standScienceLevel
+			standScienceLevel: standScienceLevel,
+			lifetimePrestige: lifetimePrestige
 		}
 		localStorage.setItem("save",JSON.stringify(save));
 	}
@@ -87,6 +88,8 @@ function load(skip){
 		scienceDOM.innerHTML = science;
 		if (typeof savegame.chickenScienceLevel !== "undefined") chickenScienceLevel = savegame.chickenScienceLevel; 
 		if (typeof savegame.standScienceLevel !== "undefined") standScienceLevel = savegame.standScienceLevel; 
+		if (typeof savegame.lifetimePrestige !== "undefined") lifetimePrestige = savegame.lifetimePrestige; 
+		document.getElementById("lifetimePrestige").innerHTML = lifetimePrestige;
 	updateInventory();
 	updateUpgrades(chickenUpgradeLevel, "chicken");
 	updateUpgrades(standUpgradeLevel, "stand");
