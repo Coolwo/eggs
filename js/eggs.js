@@ -235,7 +235,6 @@ function prestigeGame(){
 			document.getElementById("rubyEggs").innerHTML = rubyEggs;
 			document.getElementById("buyScienceChickens").classList.add("hide");
 			document.getElementById("prestigeButton").classList.remove("buttonReady");
-			resetUpgrades("buyScienceChicken");
 			document.getElementById("scienceUpgrade1").classList.remove("hide");
 		}
 	}
