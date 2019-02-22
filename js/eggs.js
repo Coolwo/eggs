@@ -233,7 +233,7 @@ function prestigeGame(){
 			document.getElementById("silverEggs").innerHTML = silverEggs;
 			document.getElementById("diamondEggs").innerHTML = diamondEggs;
 			document.getElementById("rubyEggs").innerHTML = rubyEggs;
-			document.getElementById("buyScienceChickens").classList.add("hide");
+			document.getElementById("scientist1").classList.add("hide");
 			document.getElementById("prestigeButton").classList.remove("buttonReady");
 			document.getElementById("scienceUpgrade1").classList.remove("hide");
 		}
