@@ -26,7 +26,7 @@ function chickenEgg(chknCount){
 			document.getElementById("rubyEggs").innerHTML = rubyEggs;
 		}
 		let chickenChicken = getRandomInt(100);
-		if (chickenChicken <= chickenPercent){
+		if (chickenChicken < chickenPercent){
 			++chickens;
 		}
 	}
