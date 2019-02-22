@@ -215,6 +215,11 @@ function prestigeGame(){
 			scienceUpgradeLevel = 0;
 			prestige = prestige + 1 + prestigeBonus;
 			lifetimePrestige += 1 + prestigeBonus;
+			eggPrice = 0.9 + minEggPrice;
+			chickenPrice = 50;
+			standPrice = 50;
+			document.getElementById("chickenPrice").innerHTML = chickenPrice;
+			document.getElementById("standPrice").innerHTML = standPrice;
 			document.getElementById("prestige").innerHTML = prestige;
 			document.getElementById("lifetimePrestige").innerHTML = lifetimePrestige;
 			eggDOM.innerHTML = eggs;
@@ -228,7 +233,8 @@ function prestigeGame(){
 			document.getElementById("diamondEggs").innerHTML = diamondEggs;
 			document.getElementById("rubyEggs").innerHTML = rubyEggs;
 			document.getElementById("prestigeButton").classList.remove("buttonReady");
-			resetUpgrades();
+			document.getElementById("")
+			resetUpgrades("buyScienceChicken");
 			document.getElementById("scienceUpgrade1").classList.remove("hide");
 		}
 	}
