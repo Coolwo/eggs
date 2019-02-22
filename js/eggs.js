@@ -201,7 +201,7 @@ function prestigeGame(){
 		if (r === true){
 			eggs = 0;
 			money = 0;
-			chickens = 0;
+			chickens = 0 + chickenBonus;
 			stands = 0;
 			goldenEggs = 0;
 			silverEggs = 0;
