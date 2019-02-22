@@ -218,6 +218,7 @@ function prestigeGame(){
 			eggPrice = 0.9 + minEggPrice;
 			chickenPrice = 50;
 			standPrice = 50;
+			document.getElementById("eggPrice").innerHTML = eggPrice;
 			document.getElementById("chickenPrice").innerHTML = chickenPrice;
 			document.getElementById("standPrice").innerHTML = standPrice;
 			document.getElementById("prestige").innerHTML = prestige;
