@@ -209,13 +209,13 @@ function prestigeGame(){
 			rubyEggs = 0;
 			scienceChickens = 0;
 			science = 0;
+			eggPrice = 0.9 + minEggPrice;
 			calcUpgrades("-");
 			chickenUpgradeLevel = 0;
 			standUpgradeLevel = 0;
 			scienceUpgradeLevel = 0;
 			prestige = prestige + 1 + prestigeBonus;
 			lifetimePrestige += 1 + prestigeBonus;
-			eggPrice = 0.9 + minEggPrice;
 			chickenPrice = 50;
 			standPrice = 50;
 			document.getElementById("eggPrice").innerHTML = eggPrice;
@@ -236,6 +236,7 @@ function prestigeGame(){
 			document.getElementById("scientist1").classList.add("hide");
 			document.getElementById("prestigeButton").classList.remove("buttonReady");
 			document.getElementById("scienceUpgrade1").classList.remove("hide");
+			hideUpgrades();
 		}
 	}
 }
@@ -404,10 +405,4 @@ function openCity(evt, cityName) {
   }
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
-}
-
-//Hacking the game?
-function pmoney(){
-	money += 1000000;
-	document.getElementById("hackerText").classList.remove("hide");
 }
