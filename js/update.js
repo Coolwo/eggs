@@ -1,20 +1,3 @@
-function unlockEverything(key){
-	if (key === "asd"){
-		document.getElementById("upgradesTab").classList.remove("disabled");
-		document.getElementById("chickenUpgrade4").classList.remove("disabled");
-		document.getElementById("standUpgrade4").classList.remove("disabled");
-		document.getElementById("moreUpgrades").classList.add("hide");
-		document.getElementById("upgradeComplete").classList.remove("hide");
-		document.getElementById("unlockUpgrades").classList.add("hide");
-	}
-	if (key === "ama"){
-		money += 1000000000000;
-	}
-	if (key === "amb"){
-		science += 1000000000000;
-	}
-}
-
 function updateUpgrades(level, type){
 	let count = 1;
     for (let i = 0; i < level; ++i){
@@ -27,6 +10,16 @@ function updateUpgrades(level, type){
 function upgradeEffect(level, type){
 	var group = upgrade[type];
 	group[level].item += group[level].count;
+}
+
+function hideUpgrades(){
+	let count = 2
+	for (let i = 0; i < 5; ++i){
+		document.getElementById("chickenUpgrade" + count).classList.add("hide");
+		document.getElementById("standUpgrade" + count).classList.add("hide");
+	}
+	document.getElementById("chickenUpgrade1").classList.remove("hide");
+	document.getElementById("standUpgrade1").classList.remove("hide");
 }
 
 function calcUpgrades(operation){
