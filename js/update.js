@@ -17,7 +17,7 @@ function hideUpgrades(){
 	for (let i = 0; i < 5; ++i){
 		document.getElementById("chickenUpgrade" + count).classList.add("hide");
 		document.getElementById("standUpgrade" + count).classList.add("hide");
-		console.log(count);
+		++count;
 	}
 	document.getElementById("chickenUpgrade1").classList.remove("hide");
 	document.getElementById("standUpgrade1").classList.remove("hide");
