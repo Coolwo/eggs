@@ -236,7 +236,7 @@ function prestigeGame(){
 			document.getElementById("scientist1").classList.add("hide");
 			document.getElementById("prestigeButton").classList.remove("buttonReady");
 			document.getElementById("scienceUpgrade1").classList.remove("hide");
-			hideUpgrades();
+			resetUpgrades();
 		}
 	}
 }
