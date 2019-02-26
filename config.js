@@ -1,4 +1,4 @@
-const version = "1.3";
+const version = "1.2";
 
 //Sets HTML DOM
 const eggDOM = document.getElementById("eggs");
