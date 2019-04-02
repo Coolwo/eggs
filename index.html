@@ -51,6 +51,28 @@
 	min-width: 40vw;
 	z-index: 10;	
 }
+#cross{
+	color: crimson;
+}
+#check{	
+	color: lightgreen;
+}	
+#inpCircle{
+	color: gold;
+}
+/* 
+&check; (Check)	
+	
+&cross; (Cross)	
+	
+&cir; (Empty)
+&#x25D4; (Quarter)
+&#x25D1; (Half)
+&#x25D5; (3 Quarters)
+&#x26AB; (Solid)
+&#x235F; (Star)
+*/
+	
 .footer_text{
 	position: fixed;
 	background-color: #fefefe;
@@ -519,7 +541,7 @@ Prestige: <span id="prestige">0</span><br />
 	</div>
 </div>
 <div id="footer">
-- <a id="help_link" onclick="displayFooter('help')">Help</a> | <a id="help_link" onclick="displayFooter('new')"><b>What's New?</b></a> -
+- <a id="help_link" onclick="displayFooter('help')">Help</a> | <a id="help_link" onclick="displayFooter('new')"><b>What's New?</b></a> | <a id="help_link" onclick="displayFooter('dev')"><b>Devlog</b></a> -
 </div>
 <script type="text/javascript" src="config.js"></script>
 <script type="text/javascript" src="js/eggs.js"></script>
@@ -568,5 +590,18 @@ Prestige: <span id="prestige">0</span><br />
 	Science and science chickens do not save over prestiges.<br /><br />
 	Any more questions and <i>especially</i> bug reports can be submitted <a href="https://goo.gl/forms/NegBQvbJmYhQ0sK82">here</a>.<br /><br />
 <a id="text_link" onclick="displayFooter('new')">Close</a><br /> 
+	
+<div id="dev_text" class="hide footer_text">
+	I took a brief haitus, but development for v1.3 is underway. This one won't be as big as v1.2 and should take ~2-3 weeks
+	
+	Updated on 02-04-19
+	<a id="cross">&cross;</a> New Chicken Sciences (~2-3)<br />
+	<a id="cross">&cross;</a> New Stand Sciences (~2-3)<br /><br />
+	
+	<a id="cross">&cross;</a> Special Egg Chickens<br />
+	<a id="cross">&cross;</a> Stand Variant<br />
+		
+	<a id="incCircle">&#x235F;</a> More Presitges?<br />
+<a id="text_link" onclick="displayFooter('dev')">Close</a><br /> 
 </div>
 </html>
